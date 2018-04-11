@@ -1,6 +1,6 @@
 README
 
-Villanova was the NCAA men's basketball champion for the 2017-18 season. They also lost to 4 different teams earlier in the season. The purpose of this program is to entertain the idea of those 4 teams being "transitive" champions. Also by this concept, any team that beat those 4 teams is also a transitive champions. This chain continues until there are no other teams that by some degree of separation beat Villanova. 
+Villanova was the NCAA men's basketball champion for the 2017-18 season. They also lost to 4 different teams earlier in the season. The purpose of this program is to entertain the idea of those 4 teams being "transitive" champion. Also by this concept, any team that beat those 4 teams is also a transitive champions. This chain continues until there are no other teams that by some degree of separation beat Villanova. 
 
 This program tampers with the data over this past season to determine some key points over this concept. How many teams did not transitively win? Did all division 1 schools transitively win?
 
