@@ -1,0 +1,9 @@
+README
+
+Villanova was the NCAA men's basketball champion for the 2017-18 season. They also lost to 4 different teams earlier in the season. The purpose of this program is to entertain the idea of those 4 teams being "transitive" champions. Also by this concept, any team that beat those 4 teams is also a transitive champion. This chain continues until there are no other teams that by some degree of separation beat Villanova. 
+
+This program tampers with the data over this past season to determine some key points over this concept. How many teams did not transitively win? Did all division 1 schools transitively win?
+
+The idea for this came about from a FiveThirtyEight challenge. Readers were prompted with this very hypothetical and asked to determine a number of transitive winners/losers.
+
+The program was built in Visual Studio with C#. I utilized a tree of teams, organized by losses. Villanova was the root, and every team they lost to was a child to them. This continues on with every team being added only once. From this data structure, we can determine any sort of bit of information related to the original questions asked. 
