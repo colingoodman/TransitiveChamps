@@ -16,10 +16,34 @@ namespace TransitiveChamps
 
             Dictionary<string, Team> teams = new Dictionary<string, Team>();
             teams = PopulateTeams(lines);
-            
+
+            Tree master = QueuePopulate(teams);
             //Tree master = RecursivePopulate(teams, teams["Kansas_St"]);
 
             Console.ReadLine();
+        }
+
+        public static Tree QueuePopulate(Dictionary<string, Team> teams)
+        {
+            Queue<Team> populate = new Queue<Team>();
+            Tree result = new Tree(teams["Cal_Lutheran"]);
+
+            populate.Enqueue(teams["Cal_Lutheran"]);
+
+            while(populate.Count > 0)
+            {
+                Team temp = populate.Dequeue();
+                Tree target = result.Traverse(temp);
+                result.AddChild(new Tree(temp));
+                temp.inTree = true;
+
+                for(int i = 0; i < temp.losses.Count; i++)
+                {
+                    populate.Enqueue(temp.losses[i]);
+                }
+            }
+
+            return result;
         }
         
         //dont use
@@ -56,11 +80,18 @@ namespace TransitiveChamps
         public static Dictionary<string,Team> PopulateTeams(List<string[]> lines)
         {
             Dictionary<string, Team> output = new Dictionary<string, Team>();
+            double PROCESS_AMT = 1000;//lines.Count;
+            Console.WriteLine("Now processing games from games.txt");
 
             //traverse lines and add all teams to the team list only once
-            for(int i = 0; i < lines.Count; i++)
+            for(int i = 0; i < PROCESS_AMT; i++)
             {//i used two for loops here in case a team only ever showed up on the same column somehow
-                Console.WriteLine("Processing game " + i + " of " + lines.Count);
+                
+                double perc = i / PROCESS_AMT;
+                if(perc*100 % 5 == 0)
+                {
+                    Console.WriteLine(perc * 100 + "% of games processed.");
+                }
 
                 //first, check to see if either team has not been already added to the dictionary
                 string tempOne = lines[i][1];

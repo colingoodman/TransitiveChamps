@@ -21,6 +21,24 @@ namespace TransitiveChamps
             children.Add(name);
         }
 
+        public Tree Traverse(Team input)
+        {
+            if(team == input)
+            {
+                return this;
+            }
+
+            for(int i = 0; i < children.Count; i++)
+            {
+                if(children[i].Traverse(input) != null)
+                {
+                    return children[i];
+                }
+            }
+
+            return null;
+        }
+
         public List<Team> GetChildren(List<Team> input)
         {
             if(children.Count == 0)
