@@ -26,12 +26,17 @@ namespace TransitiveChamps
             }
             else
             {
+                bool add = true; //whether we should add the team, default to true
                 for (int i = 0; i < losses.Count; i++)
                 {
-                    if (losses[i].ToString() != input.ToString())
+                    if (losses[i].ToString() == input.ToString())
                     {
-                        losses.Add(input);
+                        add = false;
                     }
+                }
+                if(add)
+                {
+                    losses.Add(input);
                 }
             }
             
