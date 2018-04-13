@@ -18,16 +18,40 @@ namespace TransitiveChamps
             teams = PopulateTeams(lines);
 
             Tree master = QueuePopulate(teams);
-            //Tree master = RecursivePopulate(teams, teams["Kansas_St"]);
+
+            Console.WriteLine("Total teams: " + teams.Count);
+
+            int losers = NumLosers(teams);
+
+            Console.WriteLine("Number of teams that were transitive winners: " + (teams.Count-losers));
+            Console.WriteLine("Number of teams that were not transitive winners: " + losers);
 
             Console.ReadLine();
         }
 
+        public static int NumLosers(Dictionary<string, Team> teams)
+        {
+            int count = 0;
+            
+            foreach(KeyValuePair<string, Team> entry in teams)
+            {
+                // do something with entry.Value or entry.Key
+                if(teams[entry.Key].inTree == false)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
         public static Tree QueuePopulate(Dictionary<string, Team> teams)
         {
+            Console.WriteLine("Now populating the tree.");
+
             Queue<Team> populate = new Queue<Team>();
-            Tree result = new Tree(teams["Cal_Lutheran"]);
-            populate.Enqueue(teams["Cal_Lutheran"]);
+            Tree result = new Tree(teams["Villanova"]);
+            populate.Enqueue(teams["Villanova"]);
 
             //ALG
             //while the queue is not empty,
@@ -45,7 +69,7 @@ namespace TransitiveChamps
                         populate.Enqueue(temp.losses[i]); //add child to queue
                         target.AddChild(new Tree(temp.losses[i])); //add child to tree
                         temp.losses[i].inTree = true;
-                        Console.WriteLine("Added " + temp.name + " as a child to " + target.team.name + " tree.");
+                        
                     }
                 }
             }
@@ -87,7 +111,7 @@ namespace TransitiveChamps
         public static Dictionary<string,Team> PopulateTeams(List<string[]> lines)
         {
             Dictionary<string, Team> output = new Dictionary<string, Team>();
-            double PROCESS_AMT = 2000;//lines.Count;
+            double PROCESS_AMT = lines.Count;
             Console.WriteLine("Now processing games from games.txt");
 
             //traverse lines and add all teams to the team list only once
@@ -95,7 +119,7 @@ namespace TransitiveChamps
             {//i used two for loops here in case a team only ever showed up on the same column somehow
                 
                 double perc = i / PROCESS_AMT;
-                if(perc*100 % 5 == 0)
+                if(perc*100 % 2 == 0)
                 {
                     Console.WriteLine(perc * 100 + "% of games processed.");
                 }
