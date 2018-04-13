@@ -27,19 +27,26 @@ namespace TransitiveChamps
         {
             Queue<Team> populate = new Queue<Team>();
             Tree result = new Tree(teams["Cal_Lutheran"]);
-
             populate.Enqueue(teams["Cal_Lutheran"]);
+
+            //ALG
+            //while the queue is not empty,
+            //dequeue, add children to queue and tree
 
             while(populate.Count > 0)
             {
                 Team temp = populate.Dequeue();
                 Tree target = result.Traverse(temp);
-                result.AddChild(new Tree(temp));
-                temp.inTree = true;
 
                 for(int i = 0; i < temp.losses.Count; i++)
                 {
-                    populate.Enqueue(temp.losses[i]);
+                    if(temp.losses[i].inTree == false)
+                    {
+                        populate.Enqueue(temp.losses[i]); //add child to queue
+                        target.AddChild(new Tree(temp.losses[i])); //add child to tree
+                        temp.losses[i].inTree = true;
+                        Console.WriteLine("Added " + temp.name + " as a child to " + target.team.name + " tree.");
+                    }
                 }
             }
 
@@ -80,7 +87,7 @@ namespace TransitiveChamps
         public static Dictionary<string,Team> PopulateTeams(List<string[]> lines)
         {
             Dictionary<string, Team> output = new Dictionary<string, Team>();
-            double PROCESS_AMT = 1000;//lines.Count;
+            double PROCESS_AMT = 2000;//lines.Count;
             Console.WriteLine("Now processing games from games.txt");
 
             //traverse lines and add all teams to the team list only once

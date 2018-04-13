@@ -27,12 +27,16 @@ namespace TransitiveChamps
             {
                 return this;
             }
-
-            for(int i = 0; i < children.Count; i++)
+            else
             {
-                if(children[i].Traverse(input) != null)
+                for (int i = 0; i < children.Count; i++)
                 {
-                    return children[i];
+                    Tree temp = children[i].Traverse(input);
+                    
+                    if(temp != null)
+                    {
+                        return temp;
+                    }
                 }
             }
 
