@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* Colin Goodman - April 2018
+ * TransitiveChamps Project
+ * Learn more about this project on Github:
+ * https://github.com/colingoodman/TransitiveChamps
+ * */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,18 +17,20 @@ namespace TransitiveChamps
     {
         static void Main(string[] args)
         {
+            //Read input file and break it up
             List<string[]> lines = new List<string[]>();
             lines = LoadFile(lines);
 
+            //Create Team objects for every unique team found in the input file
             Dictionary<string, Team> teams = new Dictionary<string, Team>();
             teams = PopulateTeams(lines);
 
+            //Create the tree and determine the # of transitive nonwinners
             Tree master = QueuePopulate(teams);
-
-            Console.WriteLine("Total teams: " + teams.Count);
-
             int losers = NumLosers(teams);
 
+            //Tell the user what the program found
+            Console.WriteLine("Total teams: " + teams.Count);
             Console.WriteLine("Number of teams that were transitive winners: " + (teams.Count-losers));
             Console.WriteLine("Number of teams that were not transitive winners: " + losers);
 

@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* Colin Goodman - April 2018
+ * TransitiveChamps Project
+ * Learn more about this project on Github:
+ * https://github.com/colingoodman/TransitiveChamps
+ * */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
